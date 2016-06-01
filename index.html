@@ -31,8 +31,8 @@
       ctx.width = WIDTH;
       ctx.height = HEIGHT;
 
-      // fill the entire screen to white to begin with.
-      ctx.fillStyle = 'white';
+      // fill the entire screen with a blank color to begin with.
+      ctx.fillStyle = 'black';
       ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
       // initial coordinates in the middle of the screen
@@ -44,6 +44,13 @@
         green:  {x: 1 * WIDTH / 4, y: 3 * WIDTH / 4},
         blue:   {x: 3 * WIDTH / 4, y: 1 * WIDTH / 4},
         yellow: {x: 3 * WIDTH / 4, y: 3 * WIDTH / 4}
+      };
+
+      colors = {
+        red:    {x: 1 * WIDTH / 2, y: 1 * WIDTH / 2},
+        green:  {x: 1 * WIDTH / 2, y: 1 * WIDTH / 2},
+        blue:   {x: 1 * WIDTH / 2, y: 1 * WIDTH / 2},
+        yellow: {x: 1 * WIDTH / 2, y: 1 * WIDTH / 2}
       };
 
       setInterval(function() {
