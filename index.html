@@ -39,26 +39,50 @@
       var x = WIDTH / 2;
       var y = HEIGHT / 2;
 
+      var colors = {
+        red:    {x: 1 * WIDTH / 4, y: 1 * WIDTH / 4},
+        green:  {x: 1 * WIDTH / 4, y: 3 * WIDTH / 4},
+        blue:   {x: 3 * WIDTH / 4, y: 1 * WIDTH / 4},
+        yellow: {x: 3 * WIDTH / 4, y: 3 * WIDTH / 4}
+      };
+
       setInterval(function() {
-        // draw a black dot over the old position
-        ctx.fillStyle = 'black';
-        ctx.fillRect(x, y, DOT_SIZE, DOT_SIZE);
-
-        var random = Math.random();
-        if (random < .25) {
-          x += STEP_SIZE;
-        } else if (random < .5) {
-          x -= STEP_SIZE;
-        } else if (random < .75) {
-          y += STEP_SIZE;
-        } else {
-          y -= STEP_SIZE;
+        for (var color in colors) {
+          drawDots(color, colors);
         }
-
-        // draw a red dot at the new position
-        ctx.fillStyle = 'red';
-        ctx.fillRect(x, y, DOT_SIZE, DOT_SIZE);
       }, FRAMERATE);
+
+      function drawDots(color, colors) {
+        setInterval(function() {
+          // get current positions
+          var x = colors[color].x;
+          var y = colors[color].y;
+
+          // draw a black dot over current position
+          ctx.fillStyle = color;
+          ctx.fillRect(x, y, DOT_SIZE, DOT_SIZE);
+
+          // pick a random number to determine a new direction
+          var random = Math.random();
+          if (random < .25) {
+            x += STEP_SIZE;
+          } else if (random < .5) {
+            x -= STEP_SIZE;
+          } else if (random < .75) {
+            y += STEP_SIZE;
+          } else {
+            y -= STEP_SIZE;
+          }
+
+          // draw a red dot at the new position
+          ctx.fillStyle = 'black';
+          ctx.fillRect(x, y, DOT_SIZE, DOT_SIZE);
+
+          // update new positions
+          colors[color].x = x;
+          colors[color].y = y;
+        }, FRAMERATE);
+      }
     </script>
   </body>
 </html>
