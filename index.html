@@ -23,8 +23,13 @@
     <script>
       var WIDTH = window.innerWidth;
       var HEIGHT = window.innerHeight;
-      var DOT_SIZE = 5;
-      var STEP_SIZE = 5;
+      var opts = {
+        dotSize: 5,
+        stepSize: 5,
+        maxColors: 25,
+        backgroundColor: 'black',
+        showCurrentPosition: false
+      }
 
       // draw frames thirty times a second.
       var FRAMERATE = 0;
@@ -37,26 +42,23 @@
       ctx.height = HEIGHT;
 
       // fill the entire screen with a blank color to begin with.
-      ctx.fillStyle = 'black';
+      ctx.fillStyle = opts.backgroundColor;
       ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
       // initial coordinates in the middle of the screen
       var x = WIDTH / 2;
       var y = HEIGHT / 2;
 
-      var colors = {
-        red:    {x: 1 * WIDTH / 4, y: 1 * HEIGHT / 4},
-        green:  {x: 1 * WIDTH / 4, y: 3 * HEIGHT / 4},
-        blue:   {x: 3 * WIDTH / 4, y: 1 * HEIGHT / 4},
-        yellow: {x: 3 * WIDTH / 4, y: 3 * HEIGHT / 4}
-      };
-
-      colors = {
-        red:    {x: 1 * WIDTH / 2, y: 1 * HEIGHT / 2},
-        green:  {x: 1 * WIDTH / 2, y: 1 * HEIGHT / 2},
-        blue:   {x: 1 * WIDTH / 2, y: 1 * HEIGHT / 2},
-        yellow: {x: 1 * WIDTH / 2, y: 1 * HEIGHT / 2}
-      };
+      var colors = {};
+      var n = 0;
+      while (n < opts.maxColors) {
+        n++;
+        var r = Math.round(255 * Math.random());
+        var g = Math.round(255 * Math.random());
+        var b = Math.round(255 * Math.random());
+        var color = 'rgb(' + [r,g,b].join(',') + ')';
+        colors[color] = {x: x, y: y};
+      }
 
       setInterval(function() {
         for (var color in colors) {
@@ -72,23 +74,25 @@
 
           // draw a black dot over current position
           ctx.fillStyle = color;
-          ctx.fillRect(x, y, DOT_SIZE, DOT_SIZE);
+          ctx.fillRect(x, y, opts.dotSize, opts.dotSize);
 
           // pick a random number to determine a new direction
           var random = Math.random();
           if (random < .25) {
-            x += STEP_SIZE;
+            x += opts.stepSize;
           } else if (random < .5) {
-            x -= STEP_SIZE;
+            x -= opts.stepSize;
           } else if (random < .75) {
-            y += STEP_SIZE;
+            y += opts.stepSize;
           } else {
-            y -= STEP_SIZE;
+            y -= opts.stepSize;
           }
 
-          // draw a red dot at the new position
-          ctx.fillStyle = 'black';
-          ctx.fillRect(x, y, DOT_SIZE, DOT_SIZE);
+          if (opts.showCurrentPosition) {
+            // draw a red dot at the new position
+            ctx.fillStyle = 'black';
+            ctx.fillRect(x, y, opts.dotSize, opts.dotSize);
+          }
 
           // update new positions
           colors[color].x = x;
