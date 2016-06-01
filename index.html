@@ -40,14 +40,28 @@
         return Math.floor(HEIGHT * Math.random());
       }
 
+      function noBounds(n) {
+        return n;
+      }
+
+      function boundX(x) {
+        return Math.max(0, Math.min(x, WIDTH));
+      }
+
+      function boundY(y) {
+        return Math.max(0, Math.min(y, HEIGHT));
+      }
+
       var opts = {
-        dotSize: 5,
-        stepSize: 5,
+        dotSize: 50,
+        stepSize: 50,
         maxColors: 25,
         backgroundColor: 'black',
         showCurrentPosition: false,
         startX: randX,
-        startY: randY
+        startY: randY,
+        boundX: noBounds,
+        boundY: noBounds
       }
 
       // draw frames thirty times a second.
@@ -106,6 +120,9 @@
           } else {
             y -= opts.stepSize;
           }
+
+          x = opts.boundX(x);
+          y = opts.boundY(y);
 
           if (opts.showCurrentPosition) {
             // draw a red dot at the new position
