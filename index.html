@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+    <title></title>
+    <style type="text/css" media="">
+      canvas {
+        width: 400px;
+        height: 400px;
+        border: solid black 1px;
+      }
+    </style>
+
+  </head>
+  <body>
+    <canvas id="screen"></canvas>
+
+    <script>
+      var WIDTH = 400;
+      var HEIGHT = 400;
+      var DOT_SIZE = 5;
+      var STEP_SIZE = 5;
+
+      // draw frames thirty times a second.
+      var FRAMERATE = 1000 / 30;
+
+      var canvas = document.getElementById('screen');
+      canvas.width = WIDTH;
+      canvas.height = HEIGHT;
+      ctx = canvas.getContext('2d');
+      ctx.width = WIDTH;
+      ctx.height = HEIGHT;
+
+      // fill the entire screen to white to begin with.
+      ctx.fillStyle = 'white';
+      ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+      // initial coordinates in the middle of the screen
+      var x = WIDTH / 2;
+      var y = HEIGHT / 2;
+
+      setInterval(function() {
+        // draw a black dot over the old position
+        ctx.fillStyle = 'black';
+        ctx.fillRect(x, y, DOT_SIZE, DOT_SIZE);
+
+        var random = Math.random();
+        if (random < .25) {
+          x += STEP_SIZE;
+        } else if (random < .5) {
+          x -= STEP_SIZE;
+        } else if (random < .75) {
+          y += STEP_SIZE;
+        } else {
+          y -= STEP_SIZE;
+        }
+
+        // draw a red dot at the new position
+        ctx.fillStyle = 'red';
+        ctx.fillRect(x, y, DOT_SIZE, DOT_SIZE);
+      }, FRAMERATE);
+    </script>
+  </body>
+</html>
