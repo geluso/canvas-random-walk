@@ -23,6 +23,19 @@
     <script>
       var WIDTH = window.innerWidth;
       var HEIGHT = window.innerHeight;
+
+      var opts = {
+        dotSize: 8,
+        stepSize: 8,
+        maxColors: 25,
+        backgroundColor: 'black',
+        showCurrentPosition: false,
+        startX: randX,
+        startY: randY,
+        boundX: cubic,
+        boundY: cubic
+      }
+
       
       function midX() {
         return WIDTH / 2;
@@ -44,24 +57,16 @@
         return n;
       }
 
+      function cubic(n) {
+        return Math.ceil(n / opts.dotSize) * opts.dotSize;
+      }
+
       function boundX(x) {
         return Math.max(0, Math.min(x, WIDTH));
       }
 
       function boundY(y) {
         return Math.max(0, Math.min(y, HEIGHT));
-      }
-
-      var opts = {
-        dotSize: 1,
-        stepSize: 1,
-        maxColors: 2555,
-        backgroundColor: 'black',
-        showCurrentPosition: false,
-        startX: randX,
-        startY: randY,
-        boundX: noBounds,
-        boundY: noBounds
       }
 
       // draw frames thirty times a second.
