@@ -25,13 +25,13 @@
       var HEIGHT = window.innerHeight;
 
       var opts = {
-        dotSize: 8,
-        stepSize: 8,
-        maxColors: 25,
+        dotSize: 4,
+        stepSize: 12,
+        maxColors: 5,
         backgroundColor: 'black',
         showCurrentPosition: false,
-        startX: randX,
-        startY: randY,
+        startX: midX,
+        startY: midY,
         boundX: cubic,
         boundY: cubic
       }
@@ -70,7 +70,7 @@
       }
 
       // draw frames thirty times a second.
-      var FRAMERATE = 0;
+      var FRAMERATE = 1000 / 30;
 
       var canvas = document.getElementById('screen');
       canvas.width = WIDTH;
