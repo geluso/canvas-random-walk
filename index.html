@@ -26,14 +26,14 @@
 
       var opts = {
         dotSize: 4,
-        stepSize: 12,
+        stepSize: 8,
         maxColors: 5,
         backgroundColor: 'black',
-        showCurrentPosition: false,
+        showCurrentPosition: true,
         startX: midX,
         startY: midY,
-        boundX: cubic,
-        boundY: cubic
+        boundX: wrapX,
+        boundY: wrapY
       }
 
       
@@ -59,6 +59,26 @@
 
       function cubic(n) {
         return Math.ceil(n / opts.dotSize) * opts.dotSize;
+      }
+
+      function wrapY(y) {
+        if (y < 0) {
+          return HEIGHT;
+        }
+        if (y > HEIGHT) {
+          return 0;
+        }
+        return y;
+      }
+
+      function wrapX(x) {
+        if (x < 0) {
+          return WIDTH;
+        }
+        if (x > WIDTH) {
+          return 0;
+        }
+        return x;
       }
 
       function boundX(x) {
